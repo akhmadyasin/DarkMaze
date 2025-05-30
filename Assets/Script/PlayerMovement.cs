@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class PlayerMovement : MonoBehaviour
 {
     public static string havekey = "n";
     public bool FacingLeft { get { return facingLeft; } set { facingLeft = value; } }
 
     [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private GameObject PanelWin;
 
     private PlayerController playerControl;
     private Vector2 movement;
@@ -91,8 +93,24 @@ public class PlayerMovement : MonoBehaviour
     {
         if ((door.gameObject.tag == "door") && (havekey == "y"))
         {
-            SceneManager.LoadScene("done");
+            Time.timeScale = 0f; // Pause game
+            if (PanelWin != null)
+            {
+                PanelWin.SetActive(true); // Tampilkan panel menang
+            }
         }
     }
 
+    // Fungsi untuk tombol UI
+    public void NextLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("level2");
+    }
+
+    public void QuitToMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("mainmenu");
+    }
 }
