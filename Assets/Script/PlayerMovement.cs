@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class PlayerMovement : MonoBehaviour
@@ -99,18 +98,5 @@ public class PlayerMovement : MonoBehaviour
                 PanelWin.SetActive(true); // Tampilkan panel menang
             }
         }
-    }
-
-    // Fungsi untuk tombol UI
-    public void NextLevel()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("level2");
-    }
-
-    public void QuitToMenu()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("mainmenu");
     }
 }

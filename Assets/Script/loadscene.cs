@@ -7,8 +7,23 @@ public class loadscene : MonoBehaviour
 {
     public void ChangeScene(string scene)
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(scene);
     }
+
+    public void LoadNextScene()
+    {
+        Time.timeScale = 1f;
+        int nextIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        SceneManager.LoadScene(nextIndex);
+    }
+
+    public void QuitToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("mainmenu");
+    }
+
     public void quitGame()
     {
         Application.Quit();
