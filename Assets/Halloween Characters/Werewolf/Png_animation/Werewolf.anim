@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ghost
+  m_Name: Werewolf
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 1f57055144d7a3c4282964a8dc72857d, type: 3}
+      value: {fileID: 21300000, guid: 4cbb1d3cb0ea440408ac1bcaca22595d, type: 3}
     - time: 0.2
-      value: {fileID: 21300000, guid: f3494d67f756e0e4c89bdd4b2ff44a3a, type: 3}
+      value: {fileID: 21300000, guid: b7c800e6b62bb7b48a54023f5645724b, type: 3}
     - time: 0.38333333
-      value: {fileID: 21300000, guid: a73d71298cfcdb649bbc23f944ed5b60, type: 3}
+      value: {fileID: 21300000, guid: 26184154912557c4ab201707ce5d6d87, type: 3}
     - time: 0.5833333
-      value: {fileID: 21300000, guid: bf3e6230ab9c9be45b1232384f4f2a57, type: 3}
+      value: {fileID: 21300000, guid: 7eafcae3e2bb88d4eb5cb9cd6c1d26f0, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,10 +46,10 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 1f57055144d7a3c4282964a8dc72857d, type: 3}
-    - {fileID: 21300000, guid: f3494d67f756e0e4c89bdd4b2ff44a3a, type: 3}
-    - {fileID: 21300000, guid: a73d71298cfcdb649bbc23f944ed5b60, type: 3}
-    - {fileID: 21300000, guid: bf3e6230ab9c9be45b1232384f4f2a57, type: 3}
+    - {fileID: 21300000, guid: 4cbb1d3cb0ea440408ac1bcaca22595d, type: 3}
+    - {fileID: 21300000, guid: b7c800e6b62bb7b48a54023f5645724b, type: 3}
+    - {fileID: 21300000, guid: 26184154912557c4ab201707ce5d6d87, type: 3}
+    - {fileID: 21300000, guid: 7eafcae3e2bb88d4eb5cb9cd6c1d26f0, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class key : MonoBehaviour
 {
+    public int keyValue = 1;
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("player")) // pastikan Player punya tag "Player"
+        PlayerMovement player = other.GetComponent<PlayerMovement>();
+        if (player != null)
         {
-            Destroy(gameObject); // Hilangkan kunci dari scene
+            player.addKey(keyValue);
+            Destroy(gameObject); // Hapus key dari scene
         }
     }
 }

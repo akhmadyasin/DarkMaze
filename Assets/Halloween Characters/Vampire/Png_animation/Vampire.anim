@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ghost
+  m_Name: Vampire
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 1f57055144d7a3c4282964a8dc72857d, type: 3}
+      value: {fileID: 21300000, guid: 4d2585a57e1d0b049bbe70421735fee5, type: 3}
     - time: 0.2
-      value: {fileID: 21300000, guid: f3494d67f756e0e4c89bdd4b2ff44a3a, type: 3}
+      value: {fileID: 21300000, guid: 09fafc32e1328b443b461903661e31a5, type: 3}
     - time: 0.38333333
-      value: {fileID: 21300000, guid: a73d71298cfcdb649bbc23f944ed5b60, type: 3}
+      value: {fileID: 21300000, guid: f9863b8305ff46d46a8b635a0a1e8160, type: 3}
     - time: 0.5833333
-      value: {fileID: 21300000, guid: bf3e6230ab9c9be45b1232384f4f2a57, type: 3}
+      value: {fileID: 21300000, guid: ea54598c4d04697478b2200662679be7, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,10 +46,10 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 1f57055144d7a3c4282964a8dc72857d, type: 3}
-    - {fileID: 21300000, guid: f3494d67f756e0e4c89bdd4b2ff44a3a, type: 3}
-    - {fileID: 21300000, guid: a73d71298cfcdb649bbc23f944ed5b60, type: 3}
-    - {fileID: 21300000, guid: bf3e6230ab9c9be45b1232384f4f2a57, type: 3}
+    - {fileID: 21300000, guid: 4d2585a57e1d0b049bbe70421735fee5, type: 3}
+    - {fileID: 21300000, guid: 09fafc32e1328b443b461903661e31a5, type: 3}
+    - {fileID: 21300000, guid: f9863b8305ff46d46a8b635a0a1e8160, type: 3}
+    - {fileID: 21300000, guid: ea54598c4d04697478b2200662679be7, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
