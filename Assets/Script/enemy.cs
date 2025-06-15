@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -7,10 +8,13 @@ public class enemy : MonoBehaviour
     public float chaseRange = 10f;
     public float returnRangeMultiplier = 1.5f;
     public float raycastDistance = 0.6f;
-    public float patrolRange = 3f; //  Jarak acak patroli
-    public float patrolWaitTime = 2f; //  Waktu tunggu sebelum pilih tujuan baru
+    public float patrolRange = 3f;
+    public float patrolWaitTime = 2f;
     public LayerMask obstacleLayer;
     public Transform target;
+
+    public int damage = 20;
+    public float knockbackForce = 5f;
 
     private Rigidbody2D rb;
     private Vector2 moveDirection;
@@ -49,7 +53,6 @@ public class enemy : MonoBehaviour
         float distanceToStart = Vector2.Distance(transform.position, startPosition);
         float distanceToPatrol = Vector2.Distance(transform.position, patrolTarget);
 
-        // === State Transition Logic ===
         switch (currentState)
         {
             case State.Idle:
@@ -60,7 +63,6 @@ public class enemy : MonoBehaviour
                 }
                 else
                 {
-                    // Patroli acak saat idle
                     patrolTimer -= Time.deltaTime;
                     if (patrolTimer <= 0 || distanceToPatrol < 0.2f)
                     {
@@ -93,23 +95,19 @@ public class enemy : MonoBehaviour
                 break;
         }
 
-        // === Arah Gerak Berdasarkan State ===
         switch (currentState)
         {
             case State.Chasing:
                 moveDirection = (target.position - transform.position).normalized;
                 break;
-
             case State.Returning:
                 moveDirection = (startPosition - (Vector2)transform.position).normalized;
                 break;
-
             case State.Idle:
                 moveDirection = (patrolTarget - (Vector2)transform.position).normalized;
                 break;
         }
 
-        // === Raycast: Stop kalau ada tembok ===
         if (moveDirection != Vector2.zero)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, moveDirection, raycastDistance, obstacleLayer);
@@ -122,7 +120,6 @@ public class enemy : MonoBehaviour
             Debug.DrawRay(transform.position, moveDirection * raycastDistance, Color.red);
         }
 
-        // === Flip Sprite ===
         if (spriteRenderer && moveDirection.x != 0)
             spriteRenderer.flipX = moveDirection.x > 0;
     }
@@ -132,12 +129,22 @@ public class enemy : MonoBehaviour
         rb.velocity = moveDirection * moveSpeed;
     }
 
-    // === Fungsi Patroli Acak ===
     void SetRandomPatrolTarget()
     {
         float randX = Random.Range(-patrolRange, patrolRange);
         float randY = Random.Range(-patrolRange, patrolRange);
         patrolTarget = startPosition + new Vector2(randX, randY);
         Debug.Log("Enemy: New patrol target set to " + patrolTarget);
+    }
+
+    // === Tambahan: Deteksi tumbukan dengan player ===
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        PlayerMovement player = collision.collider.GetComponent<PlayerMovement>();
+        if (player != null)
+        {
+            Vector2 knockDir = (player.transform.position - transform.position).normalized;
+            player.TakeDamage(damage, knockDir * knockbackForce);
+        }
     }
 }

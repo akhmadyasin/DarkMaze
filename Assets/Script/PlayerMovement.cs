@@ -82,8 +82,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        playerControl = new PlayerController();
         rb = GetComponent<Rigidbody2D>();
+        playerControl = new PlayerController();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
 
@@ -108,10 +108,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isKnockedBack) return;
+
         AdjustPlayerFacingDirection();
         Move();
-
-        if (isKnockedBack) return;
     }
 
     private void PlayerInput()
