@@ -14,7 +14,12 @@ public class enemy : MonoBehaviour
     public Transform target;
 
     public int damage = 20;
-    public float knockbackForce = 5f;
+    public float knockbackForce = 5f; // force knockback musuh dan player
+
+    public int maxHealth = 100;
+    private int currentHealth;
+
+    public float hitStopDuration = 0.3f; // durasi stun / berhenti
 
     private Rigidbody2D rb;
     private Vector2 moveDirection;
@@ -24,11 +29,14 @@ public class enemy : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    private bool isKnockedBack = false;
+
     private enum State { Idle, Chasing, Returning }
     private State currentState = State.Idle;
 
     void Awake()
     {
+        currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         startPosition = transform.position;
@@ -48,6 +56,13 @@ public class enemy : MonoBehaviour
     void Update()
     {
         if (target == null) return;
+
+        if (isKnockedBack)
+        {
+            // Saat knockback, skip AI gerak
+            moveDirection = Vector2.zero;
+            return;
+        }
 
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
         float distanceToStart = Vector2.Distance(transform.position, startPosition);
@@ -126,6 +141,12 @@ public class enemy : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isKnockedBack)
+        {
+            // saat knockback, biarkan velocity yg sudah di-set tetap jalan
+            return;
+        }
+
         rb.velocity = moveDirection * moveSpeed;
     }
 
@@ -137,14 +158,44 @@ public class enemy : MonoBehaviour
         Debug.Log("Enemy: New patrol target set to " + patrolTarget);
     }
 
-    // === Tambahan: Deteksi tumbukan dengan player ===
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerMovement player = collision.collider.GetComponent<PlayerMovement>();
         if (player != null)
         {
             Vector2 knockDir = (player.transform.position - transform.position).normalized;
-            player.TakeDamage(damage, knockDir * knockbackForce);
+            player.TakeDamage(damage, knockDir * knockbackForce);  // player kena knockback disini
         }
+    }
+
+    // Fungsi ini dipanggil saat enemy kena serangan
+    public void TakeDamage(int amount, Transform source)
+    {
+        currentHealth -= amount;
+        Debug.Log("Enemy took " + amount + " damage. Current HP: " + currentHealth);
+
+        // Hit musuh: apply knockback dan stun singkat
+        Vector2 knockbackDir = (transform.position - source.position).normalized;
+        StartCoroutine(KnockbackCoroutine(knockbackDir, knockbackForce));
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private IEnumerator KnockbackCoroutine(Vector2 direction, float force)
+    {
+        isKnockedBack = true;
+        rb.velocity = direction * force;
+        yield return new WaitForSeconds(hitStopDuration);
+        isKnockedBack = false;
+        rb.velocity = Vector2.zero; // reset velocity setelah knockback selesai
+    }
+
+    void Die()
+    {
+        Debug.Log("Enemy died!");
+        Destroy(gameObject);
     }
 }
