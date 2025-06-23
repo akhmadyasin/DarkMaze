@@ -36,4 +36,9 @@ public class loadscene : MonoBehaviour
     {
         Time.timeScale = 1;
     }
+    public void RestartLevel()
+    {
+        Time.timeScale = 1f; // Kembalikan kecepatan waktu
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Restart scene yang sedang aktif
+    }
 }

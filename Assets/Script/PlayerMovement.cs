@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Health System")]
     public int maxHealth = 100;
     private int currentHealth;
-    public TextMeshProUGUI healthText;
+    public Image healthFillImage;
+    [SerializeField] private GameObject PanelDie; //  Tambahan untuk panel "Die"
 
     [Header("Knockback Settings")]
     [SerializeField] private float knockBackTime = 0.2f;
@@ -19,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Key System")]
     public int collectedKeys = 0;
     public int totalKeysRequired = 3;
-    public TextMeshProUGUI keyText;
+    public TextMeshProUGUI keyCountText;
 
     [Header("Attack Settings")]
     public Transform attackPoint;
@@ -37,10 +39,13 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     public SpriteRenderer sprite;
     private bool facingLeft = false;
+    private Vector3 originalAttackPointLocalPos;
 
     public bool FacingLeft { get { return facingLeft; } set { facingLeft = value; } }
 
     [SerializeField] private float moveSpeed = 1f;
+
+    private bool isDead = false; //  Tambahan flag mati
 
     private void Awake()
     {
@@ -53,6 +58,10 @@ public class PlayerMovement : MonoBehaviour
         UpdateHealthUI();
 
         playerControl.Movement.Attack.performed += ctx => HandleAttackInput();
+
+        originalAttackPointLocalPos = attackPoint.localPosition;
+
+        addKey(0);
     }
 
     private void OnEnable()
@@ -67,13 +76,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (isDead) return; //  Jangan input kalau sudah mati
         PlayerInput();
     }
 
     private void FixedUpdate()
     {
-        if (isKnockedBack || isAttacking) return;
-
+        if (isKnockedBack || isAttacking || isDead) return;
         AdjustPlayerFacingDirection();
         Move();
     }
@@ -103,19 +112,27 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movement.x != 0f)
         {
-            sprite.flipX = movement.x < 0f;
-            FacingLeft = movement.x < 0f;
-        }
-        else if (movement.y != 0f)
-        {
-            sprite.flipX = false;
-            FacingLeft = false;
+            bool newFacingLeft = movement.x < 0f;
+
+            if (facingLeft != newFacingLeft)
+            {
+                facingLeft = newFacingLeft;
+                sprite.flipX = facingLeft;
+
+                Vector3 flippedAttackPos = originalAttackPointLocalPos;
+                flippedAttackPos.x *= facingLeft ? -1 : 1;
+                attackPoint.localPosition = flippedAttackPos;
+
+                Vector3 flippedScale = attackPoint.localScale;
+                flippedScale.x = Mathf.Abs(flippedScale.x) * (facingLeft ? -1 : 1);
+                attackPoint.localScale = flippedScale;
+            }
         }
     }
 
     private void HandleAttackInput()
     {
-        if (!isAttacking)
+        if (!isAttacking && !isDead)
         {
             StartCoroutine(AttackCoroutine());
         }
@@ -124,13 +141,13 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator AttackCoroutine()
     {
         isAttacking = true;
-        anim.SetInteger("state", 2); // Attack animation
-        yield return new WaitForSeconds(0.1f); // waktu timing serangan
+        anim.SetInteger("state", 2); // Attack
+        yield return new WaitForSeconds(0.1f);
 
         Collider2D attackCollider = attackPoint.GetComponent<Collider2D>();
         if (attackCollider != null)
         {
-            Collider2D[] hits = new Collider2D[10]; // buffer array
+            Collider2D[] hits = new Collider2D[10];
             ContactFilter2D filter = new ContactFilter2D();
             filter.SetLayerMask(enemyLayer);
             filter.useLayerMask = true;
@@ -153,17 +170,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 direction)
     {
-        if (isKnockedBack) return;
+        if (isKnockedBack || isDead) return; //  Jangan ambil damage kalau sudah mati
 
         currentHealth -= damage;
+        UpdateHealthUI();
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Debug.Log("Player Mati");
+            Die();
+            return;
         }
 
         StartCoroutine(HandleKnockback(direction.normalized));
-        UpdateHealthUI();
     }
 
     private IEnumerator HandleKnockback(Vector2 direction)
@@ -179,18 +198,38 @@ public class PlayerMovement : MonoBehaviour
         isKnockedBack = false;
     }
 
+    private void Die()
+    {
+        isDead = true;
+        anim.SetInteger("state", 3); //  Ganti ke animasi mati
+        rb.velocity = Vector2.zero;
+        movement = Vector2.zero;
+
+        StartCoroutine(ShowDiePanelAfterDelay());
+    }
+
+    private IEnumerator ShowDiePanelAfterDelay()
+    {
+        yield return new WaitForSeconds(0.8f); // waktu untuk animasi mati
+        Time.timeScale = 0f;
+        if (PanelDie != null)
+            PanelDie.SetActive(true);
+    }
+
     private void UpdateHealthUI()
     {
-        if (healthText != null)
-            healthText.text = "Health: " + currentHealth;
+        if (healthFillImage != null)
+        {
+            healthFillImage.fillAmount = (float)currentHealth / maxHealth;
+        }
     }
 
     public void addKey(int amount)
     {
         collectedKeys += amount;
-        if (keyText != null)
+        if (keyCountText != null)
         {
-            keyText.text = "Keys: " + collectedKeys.ToString() + "/" + totalKeysRequired;
+            keyCountText.text = collectedKeys + " / " + totalKeysRequired;
         }
     }
 
@@ -198,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("key"))
         {
-            // Implementasi ngambil key bisa kamu tambahkan di sini
+            // Tambahkan logika ambil kunci di sini
         }
     }
 
