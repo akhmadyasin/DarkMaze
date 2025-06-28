@@ -233,6 +233,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void AttackFromButton()
+    {
+        HandleAttackInput();
+    }
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("key"))
