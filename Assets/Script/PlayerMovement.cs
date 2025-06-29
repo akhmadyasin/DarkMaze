@@ -30,6 +30,15 @@ public class PlayerMovement : MonoBehaviour
     public float playerDamage = 20f;
     private bool isAttacking = false;
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip attackSFX;
+    [SerializeField] private AudioClip damageSFX;
+    [SerializeField] private AudioClip pickupSFX;
+    [SerializeField] private AudioClip runSFX;
+
+    private AudioSource audioSource;
+    private AudioSource runAudioSource;
+
     [SerializeField] private GameObject PanelWin;
 
     private PlayerController playerControl;
@@ -49,6 +58,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
+        runAudioSource = gameObject.AddComponent<AudioSource>();
+        runAudioSource.clip = runSFX;
+        runAudioSource.loop = true;
+        runAudioSource.playOnAwake = false;
+
         rb = GetComponent<Rigidbody2D>();
         playerControl = new PlayerController();
         anim = GetComponent<Animator>();
@@ -63,6 +79,15 @@ public class PlayerMovement : MonoBehaviour
 
         addKey(0);
     }
+
+    private void PlaySFX(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
 
     private void OnEnable()
     {
@@ -96,12 +121,17 @@ public class PlayerMovement : MonoBehaviour
         if (movement.magnitude > 0.1f)
         {
             anim.SetInteger("state", 1); // Run
+            if (!runAudioSource.isPlaying && runSFX != null)
+                runAudioSource.Play();
         }
         else
         {
             anim.SetInteger("state", 0); // Idle
+            if (runAudioSource.isPlaying)
+                runAudioSource.Stop();
         }
     }
+
 
     private void Move()
     {
@@ -134,6 +164,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isAttacking && !isDead)
         {
+            PlaySFX(attackSFX);
+            if (runAudioSource.isPlaying)
+                runAudioSource.Stop();
             StartCoroutine(AttackCoroutine());
         }
     }
@@ -171,6 +204,7 @@ public class PlayerMovement : MonoBehaviour
     public void TakeDamage(int damage, Vector2 direction)
     {
         if (isKnockedBack || isDead) return; //  Jangan ambil damage kalau sudah mati
+        PlaySFX(damageSFX);
 
         currentHealth -= damage;
         UpdateHealthUI();
@@ -204,6 +238,9 @@ public class PlayerMovement : MonoBehaviour
         anim.SetInteger("state", 3); //  Ganti ke animasi mati
         rb.velocity = Vector2.zero;
         movement = Vector2.zero;
+
+        if (runAudioSource.isPlaying)
+            runAudioSource.Stop();
 
         StartCoroutine(ShowDiePanelAfterDelay());
     }

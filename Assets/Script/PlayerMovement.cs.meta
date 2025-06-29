@@ -3,7 +3,17 @@ guid: 44fa55296648b66459ea905351eed9d2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - healthFillImage: {instanceID: 0}
+  - PanelDie: {instanceID: 0}
+  - keyCountText: {instanceID: 0}
+  - attackPoint: {instanceID: 0}
+  - attackSFX: {instanceID: 0}
+  - damageSFX: {instanceID: 0}
+  - pickupSFX: {instanceID: 0}
+  - runSFX: {instanceID: 0}
+  - PanelWin: {instanceID: 0}
+  - sprite: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
