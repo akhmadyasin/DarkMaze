@@ -44,6 +44,10 @@ public class loadscene : MonoBehaviour
     {
         Time.timeScale = 1;
     }
+    public void credits()
+    {
+        Time.timeScale = 0;
+    }
     public void RestartLevel()
     {
         Time.timeScale = 1f; // Kembalikan kecepatan waktu
