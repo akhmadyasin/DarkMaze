@@ -1147,7 +1147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 173805037}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.071817, y: -10.015719, z: -10}
+  m_LocalPosition: {x: -17.480404, y: -10.01772, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4011,6 +4011,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 877637717}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 204303784}
         m_TargetAssemblyTypeName: loadscene, Assembly-CSharp
         m_MethodName: QuitToMainMenu
@@ -4662,10 +4674,10 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.43258667, y: 0.5595474}
-      - {x: 0.1579389, y: 0.48991707}
+      - {x: 0.19359678, y: 0.49201468}
       - {x: 0.24592835, y: -0.40789068}
-      - {x: 0.5799204, y: -0.4000256}
-      - {x: 0.5892563, y: 0.09665674}
+      - {x: 0.5211903, y: -0.39792848}
+      - {x: 0.6710577, y: 0.08197445}
 --- !u!1 &1214719414
 GameObject:
   m_ObjectHideFlags: 0
@@ -8709,7 +8721,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.15
+  m_Intensity: 0.2
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -8987,6 +8999,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 877637717}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 204303784}
         m_TargetAssemblyTypeName: loadscene, Assembly-CSharp
         m_MethodName: LoadNextScene
