@@ -1135,7 +1135,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 6cacc8aeb36bad24bbf9e723b6731e72, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4261,10 +4261,10 @@ RectTransform:
   m_Father: {fileID: 204303783}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.818, y: 0.118579775}
-  m_AnchorMax: {x: 0.9306594, y: 0.36789107}
-  m_AnchoredPosition: {x: -1.8699951, y: 0.54000854}
-  m_SizeDelta: {x: 1.7399902, y: 0.44999695}
+  m_AnchorMin: {x: 0.808, y: 0.14581713}
+  m_AnchorMax: {x: 0.9201168, y: 0.39849028}
+  m_AnchoredPosition: {x: 0.8699951, y: -0.75309753}
+  m_SizeDelta: {x: 1.7399902, y: -1.550003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1187449520
 MonoBehaviour:
@@ -4394,10 +4394,10 @@ RectTransform:
   m_Father: {fileID: 204303783}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.094000004, y: 0.14581713}
-  m_AnchorMax: {x: 0.18900001, y: 0.34067318}
-  m_AnchoredPosition: {x: -1.3099976, y: 0.54000854}
-  m_SizeDelta: {x: -1, y: 0}
+  m_AnchorMin: {x: 0.112, y: 0.1925642}
+  m_AnchorMax: {x: 0.18900001, y: 0.34845528}
+  m_AnchoredPosition: {x: -0.66955566, y: -0.25300598}
+  m_SizeDelta: {x: -1.3274002, y: 0.95269966}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1263706720
 MonoBehaviour:
@@ -4411,7 +4411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MovementRange: 200
+  m_MovementRange: 100
   m_DynamicOriginRange: 100
   m_ControlPath: <Gamepad>/leftStick
   m_Behaviour: 0
@@ -4738,10 +4738,10 @@ RectTransform:
   m_Father: {fileID: 204303783}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05213084, y: 0.054490276}
-  m_AnchorMax: {x: 0.231, y: 0.43589106}
-  m_AnchoredPosition: {x: -1.507019, y: -0.49295044}
-  m_SizeDelta: {x: 1.5213013, y: -1.5773926}
+  m_AnchorMin: {x: 0.078, y: 0.1283074}
+  m_AnchorMax: {x: 0.22100002, y: 0.416}
+  m_AnchoredPosition: {x: 0.2609253, y: -0.75305176}
+  m_SizeDelta: {x: -0.87799835, y: -0.91410065}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1413508342
 MonoBehaviour:
