@@ -80,6 +80,27 @@ public class PlayerMovement : MonoBehaviour
         addKey(0);
     }
 
+    private void Start()
+    {
+        // Reset semua flag biar player bisa gerak & serang di level baru
+        isDead = false;
+        isAttacking = false;
+        isKnockedBack = false;
+        movement = Vector2.zero;
+
+        Time.timeScale = 1f; // Pastikan tidak freeze
+
+        currentHealth = maxHealth;
+        UpdateHealthUI();
+
+        if (runAudioSource != null && runAudioSource.isPlaying)
+            runAudioSource.Stop();
+
+        collectedKeys = 0;
+        addKey(0);
+    }
+
+
     private void PlaySFX(AudioClip clip)
     {
         if (clip != null && audioSource != null)
