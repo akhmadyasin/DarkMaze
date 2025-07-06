@@ -4962,7 +4962,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 204303784}
         m_TargetAssemblyTypeName: loadscene, Assembly-CSharp
         m_MethodName: QuitToMainMenu
         m_Mode: 1
